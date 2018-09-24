@@ -42,7 +42,7 @@
             this.pictureBoxMain = new System.Windows.Forms.PictureBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnQuery = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -50,7 +50,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.comboDetect = new System.Windows.Forms.ComboBox();
             this.labTimer = new System.Windows.Forms.Label();
-            this.circularProgressBar1 = new CircularProgressBar.CircularProgressBar();
             this.comboExtract = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -71,6 +70,8 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.circularProgressBar1 = new CircularProgressBar.CircularProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -84,6 +85,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numPCA)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnLoadSet
@@ -128,7 +130,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(42, 518);
+            this.pictureBox1.Location = new System.Drawing.Point(4, 4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(196, 154);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -137,7 +139,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(244, 518);
+            this.pictureBox2.Location = new System.Drawing.Point(211, 4);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(196, 154);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -146,7 +148,7 @@
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Location = new System.Drawing.Point(446, 518);
+            this.pictureBox3.Location = new System.Drawing.Point(418, 4);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(196, 154);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -155,7 +157,7 @@
             // 
             // pictureBox4
             // 
-            this.pictureBox4.Location = new System.Drawing.Point(648, 518);
+            this.pictureBox4.Location = new System.Drawing.Point(625, 4);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(196, 154);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -164,7 +166,7 @@
             // 
             // pictureBox5
             // 
-            this.pictureBox5.Location = new System.Drawing.Point(850, 518);
+            this.pictureBox5.Location = new System.Drawing.Point(832, 4);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(196, 154);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -174,9 +176,9 @@
             // pictureBoxMain
             // 
             this.pictureBoxMain.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxMain.Image")));
-            this.pictureBoxMain.Location = new System.Drawing.Point(350, 56);
+            this.pictureBoxMain.Location = new System.Drawing.Point(314, 49);
             this.pictureBoxMain.Name = "pictureBoxMain";
-            this.pictureBoxMain.Size = new System.Drawing.Size(370, 273);
+            this.pictureBoxMain.Size = new System.Drawing.Size(396, 285);
             this.pictureBoxMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxMain.TabIndex = 10;
             this.pictureBoxMain.TabStop = false;
@@ -201,55 +203,66 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button3
+            // btnQuery
             // 
-            this.button3.Location = new System.Drawing.Point(6, 49);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(79, 66);
-            this.button3.TabIndex = 14;
-            this.button3.Text = "Perform Query(s)!";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnQuery.Location = new System.Drawing.Point(6, 49);
+            this.btnQuery.Name = "btnQuery";
+            this.btnQuery.Size = new System.Drawing.Size(79, 66);
+            this.btnQuery.TabIndex = 14;
+            this.btnQuery.Text = "Perform Query(s)!";
+            this.btnQuery.UseVisualStyleBackColor = true;
+            this.btnQuery.Click += new System.EventHandler(this.button3_Click);
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(119, 675);
+            this.label3.Location = new System.Drawing.Point(92, 169);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(0, 17);
+            this.label3.Size = new System.Drawing.Size(23, 20);
             this.label3.TabIndex = 15;
+            this.label3.Text = "---";
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(324, 675);
+            this.label4.Location = new System.Drawing.Point(299, 169);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(0, 17);
+            this.label4.Size = new System.Drawing.Size(23, 20);
             this.label4.TabIndex = 16;
+            this.label4.Text = "---";
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(529, 675);
+            this.label5.Location = new System.Drawing.Point(506, 169);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(0, 17);
+            this.label5.Size = new System.Drawing.Size(23, 20);
             this.label5.TabIndex = 17;
+            this.label5.Text = "---";
             // 
             // label6
             // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(726, 675);
+            this.label6.Location = new System.Drawing.Point(713, 169);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(0, 17);
+            this.label6.Size = new System.Drawing.Size(23, 20);
             this.label6.TabIndex = 18;
+            this.label6.Text = "---";
             // 
             // label7
             // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(927, 675);
+            this.label7.Location = new System.Drawing.Point(922, 169);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(0, 17);
+            this.label7.Size = new System.Drawing.Size(23, 20);
             this.label7.TabIndex = 19;
+            this.label7.Text = "---";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // comboDetect
             // 
@@ -279,45 +292,11 @@
             this.labTimer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.labTimer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labTimer.Font = new System.Drawing.Font("Consolas", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labTimer.Location = new System.Drawing.Point(800, 286);
+            this.labTimer.Location = new System.Drawing.Point(784, 268);
             this.labTimer.Name = "labTimer";
             this.labTimer.Size = new System.Drawing.Size(192, 53);
             this.labTimer.TabIndex = 22;
             this.labTimer.Text = "0000 ms";
-            // 
-            // circularProgressBar1
-            // 
-            this.circularProgressBar1.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
-            this.circularProgressBar1.AnimationSpeed = 500;
-            this.circularProgressBar1.BackColor = System.Drawing.Color.Transparent;
-            this.circularProgressBar1.Enabled = false;
-            this.circularProgressBar1.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.circularProgressBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.circularProgressBar1.InnerColor = System.Drawing.Color.Transparent;
-            this.circularProgressBar1.InnerMargin = 2;
-            this.circularProgressBar1.InnerWidth = -1;
-            this.circularProgressBar1.Location = new System.Drawing.Point(6, 21);
-            this.circularProgressBar1.MarqueeAnimationSpeed = 5000;
-            this.circularProgressBar1.Name = "circularProgressBar1";
-            this.circularProgressBar1.OuterColor = System.Drawing.Color.Gainsboro;
-            this.circularProgressBar1.OuterMargin = -7;
-            this.circularProgressBar1.OuterWidth = 5;
-            this.circularProgressBar1.ProgressColor = System.Drawing.Color.Transparent;
-            this.circularProgressBar1.ProgressWidth = 10;
-            this.circularProgressBar1.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 36F);
-            this.circularProgressBar1.Size = new System.Drawing.Size(91, 86);
-            this.circularProgressBar1.StartAngle = 0;
-            this.circularProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.circularProgressBar1.SubscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.circularProgressBar1.SubscriptMargin = new System.Windows.Forms.Padding(10, -35, 0, 0);
-            this.circularProgressBar1.SubscriptText = "";
-            this.circularProgressBar1.SuperscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.circularProgressBar1.SuperscriptMargin = new System.Windows.Forms.Padding(10, 35, 0, 0);
-            this.circularProgressBar1.SuperscriptText = "";
-            this.circularProgressBar1.TabIndex = 24;
-            this.circularProgressBar1.Text = "Stopped";
-            this.circularProgressBar1.TextMargin = new System.Windows.Forms.Padding(0);
-            this.circularProgressBar1.Value = 50;
             // 
             // comboExtract
             // 
@@ -485,14 +464,14 @@
             // 
             this.textOutput.BackColor = System.Drawing.SystemColors.MenuText;
             this.textOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textOutput.Font = new System.Drawing.Font("Consolas", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textOutput.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textOutput.ForeColor = System.Drawing.Color.Lime;
             this.textOutput.Location = new System.Drawing.Point(1057, -1);
             this.textOutput.Multiline = true;
             this.textOutput.Name = "textOutput";
             this.textOutput.ReadOnly = true;
             this.textOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textOutput.Size = new System.Drawing.Size(375, 716);
+            this.textOutput.Size = new System.Drawing.Size(375, 696);
             this.textOutput.TabIndex = 35;
             this.textOutput.Text = "Output";
             // 
@@ -511,7 +490,7 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(740, 66);
+            this.listBox1.Location = new System.Drawing.Point(729, 49);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(294, 212);
             this.listBox1.TabIndex = 37;
@@ -545,33 +524,85 @@
             this.groupBox4.Controls.Add(this.listBox1);
             this.groupBox4.Controls.Add(this.labTimer);
             this.groupBox4.Controls.Add(this.button4);
-            this.groupBox4.Controls.Add(this.button3);
+            this.groupBox4.Controls.Add(this.btnQuery);
             this.groupBox4.Controls.Add(this.pictureBoxMain);
             this.groupBox4.Location = new System.Drawing.Point(12, 157);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1039, 355);
+            this.groupBox4.Size = new System.Drawing.Size(1039, 334);
             this.groupBox4.TabIndex = 39;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Query";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox5, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox4, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox3, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox2, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 497);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1039, 190);
+            this.tableLayoutPanel1.TabIndex = 41;
+            // 
+            // circularProgressBar1
+            // 
+            this.circularProgressBar1.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
+            this.circularProgressBar1.AnimationSpeed = 500;
+            this.circularProgressBar1.BackColor = System.Drawing.Color.Transparent;
+            this.circularProgressBar1.Enabled = false;
+            this.circularProgressBar1.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.circularProgressBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.circularProgressBar1.InnerColor = System.Drawing.Color.Transparent;
+            this.circularProgressBar1.InnerMargin = 0;
+            this.circularProgressBar1.InnerWidth = -1;
+            this.circularProgressBar1.Location = new System.Drawing.Point(3, 21);
+            this.circularProgressBar1.MarqueeAnimationSpeed = 5000;
+            this.circularProgressBar1.Name = "circularProgressBar1";
+            this.circularProgressBar1.OuterColor = System.Drawing.Color.Gainsboro;
+            this.circularProgressBar1.OuterMargin = -8;
+            this.circularProgressBar1.OuterWidth = 7;
+            this.circularProgressBar1.ProgressColor = System.Drawing.Color.Transparent;
+            this.circularProgressBar1.ProgressWidth = 7;
+            this.circularProgressBar1.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 36F);
+            this.circularProgressBar1.Size = new System.Drawing.Size(101, 91);
+            this.circularProgressBar1.StartAngle = 0;
+            this.circularProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.circularProgressBar1.SubscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.circularProgressBar1.SubscriptMargin = new System.Windows.Forms.Padding(10, -35, 0, 0);
+            this.circularProgressBar1.SubscriptText = "";
+            this.circularProgressBar1.SuperscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.circularProgressBar1.SuperscriptMargin = new System.Windows.Forms.Padding(10, 35, 0, 0);
+            this.circularProgressBar1.SuperscriptText = "";
+            this.circularProgressBar1.TabIndex = 24;
+            this.circularProgressBar1.Text = "Stopped";
+            this.circularProgressBar1.TextMargin = new System.Windows.Forms.Padding(0);
+            this.circularProgressBar1.Value = 50;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1435, 717);
+            this.ClientSize = new System.Drawing.Size(1435, 696);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.textOutput);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.pictureBox5);
-            this.Controls.Add(this.pictureBox4);
-            this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -591,6 +622,8 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -610,7 +643,7 @@
         private System.Windows.Forms.PictureBox pictureBoxMain;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnQuery;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -618,7 +651,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comboDetect;
         private System.Windows.Forms.Label labTimer;
-        private CircularProgressBar.CircularProgressBar circularProgressBar1;
         private System.Windows.Forms.ComboBox comboExtract;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
@@ -639,6 +671,8 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private CircularProgressBar.CircularProgressBar circularProgressBar1;
     }
 }
 

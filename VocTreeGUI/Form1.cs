@@ -15,14 +15,19 @@ namespace VocTreeGUI
 {
     public partial class Form1 : Form
     {
+
+        PictureBox[] PicVek;
+        Label[] lableVek;
         string path = "C:\\Users\\David\\Desktop\\VocTreeDatasets\\Dataset8";
-        Process qProcess,sProcess, bProcess;
-        Task startTask;
-        string TreeParam, queryOutput, reuse, extractor, detector,vtpK,vtpH,pca;
+        List<Process> qProcess;
+        Process sProcess, bProcess;
+        Task<string> startTask;
+        string TreeParam, reuse, extractor, detector,vtpK,vtpH,pca;
         Stopwatch queryTimer, buildTimer;
         List<string> dirList, fileList,files_chk;
-        bool isFile;
-
+        bool isFile, Serv_running;
+        List<string[]> pic_result, score_result;
+        List<long> times_result = new List<long>();
         public Form1()
         {
             InitializeComponent();
@@ -31,6 +36,18 @@ namespace VocTreeGUI
             {
                 process.Kill();
             }
+            PicVek = new PictureBox[5];
+            lableVek = new Label[5];
+            lableVek[0] = label3;
+            lableVek[1] = label4;
+            lableVek[2] = label5;
+            lableVek[3] = label6;
+            lableVek[4] = label7;
+            PicVek[0] = pictureBox1;
+            PicVek[1] = pictureBox2;
+            PicVek[2] = pictureBox3;
+            PicVek[3] = pictureBox4;
+            PicVek[4] = pictureBox5;
             //DEFAULTS
             extractor = "SIFT";
             detector = "SIFT";
@@ -38,12 +55,20 @@ namespace VocTreeGUI
             pca = "";
             vtpH = "6";
             vtpK = "10";
+            Serv_running = false;
+            isFile = true;
             dirList = new List<string>();
             fileList = new List<string>();
             files_chk = new List<string>();
+            qProcess = new List<Process>();
+            pic_result = new List<string[]>();
+            score_result = new List<string[]>();
+            times_result = new List<long>();
         }
         private void button1_Click(object sender, EventArgs e)//Load Dataset
         {
+            dirList.Clear();
+            files_chk.Clear();
             FolderBrowserDialog ofd = new FolderBrowserDialog();
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -106,20 +131,15 @@ namespace VocTreeGUI
             }
 
         }
-
-        private void btnBuild_Click(object sender, EventArgs e)
+        private async void btnBuild_Click(object sender, EventArgs e)
         {
-            
             if (dirList.Contains("vocabulary") && dirList.Contains("input") && files_chk.Contains("config.txt"))
             {
                 controlBar("build");
-                Task<int> buildTask = Task.Run( () => createDatabase());
-                buildTask.Wait();
-                buildTimer.Stop();
+                await Task.Run(() => createDatabase());
                 controlBar("stop");
-                textOutput.Text = queryOutput;
+                textOutput.Text = "Build Finished";
                 labBuildTime.Text = Math.Round((((double)buildTimer.Elapsed.TotalMilliseconds) / 1000), 3) + "sec";
-                
             }
             else
             {
@@ -140,7 +160,6 @@ namespace VocTreeGUI
                 return "";
             }
         }
-
         private int createDatabase()
         {
             //Starting voctree as new Process
@@ -166,13 +185,14 @@ namespace VocTreeGUI
                 //bProcess.BeginErrorReadLine();
                 //string output = bProcess.StandardOutput.ReadToEnd();
                 bProcess.WaitForExit();
+                buildTimer.Stop();
                 //MessageBox.Show(getBetween(output, "storing info", "voctree delete"));
                 //queryOutput = output;
                 return 1;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error at Creating Database:\n"+ex.Message);
                 return 0;
             }
         }
@@ -181,18 +201,21 @@ namespace VocTreeGUI
             switch (zustand)
             {
                 case "start":
+                    circularProgressBar1.InnerColor = Color.FromArgb(0, 186, 31, 31);
                     circularProgressBar1.Value = 65;
-                    circularProgressBar1.ProgressColor = Color.FromArgb(66, 244, 83);
+                    circularProgressBar1.ProgressColor = Color.FromArgb(255,66, 244, 83);
                     circularProgressBar1.Text = "Running";
                     circularProgressBar1.Refresh();
                     break;
                 case "build":
                     circularProgressBar1.Text = "Building";
-                    circularProgressBar1.ProgressColor = Color.FromArgb(186, 31, 31);
+                    circularProgressBar1.ProgressColor = Color.FromArgb(0, 66, 244, 83);
+                    circularProgressBar1.InnerColor = Color.FromArgb(255,186, 31, 31);
                     circularProgressBar1.Value = 100;
                     circularProgressBar1.Refresh();
                     break;
                 case "stop":
+                    circularProgressBar1.InnerColor = Color.FromArgb(0, 186, 31, 31);
                     circularProgressBar1.ProgressColor = Color.FromArgb(0, 255, 128, 0);
                     circularProgressBar1.Text = "Stopped";
                     circularProgressBar1.Refresh();
@@ -217,16 +240,16 @@ namespace VocTreeGUI
                 sProcess.BeginErrorReadLine();
                 string output = sProcess.StandardOutput.ReadToEnd();
                 sProcess.WaitForExit();
-                queryOutput = output;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                MessageBox.Show("Error at startServer:\n"+ex.Message);
             }
         }
         private void stopServ()
         {
             controlBar("stop");
+            Serv_running = false;
             if (sProcess != null && !sProcess.HasExited) 
             {
                 sProcess.Kill();
@@ -236,20 +259,13 @@ namespace VocTreeGUI
             {
                 bProcess.Kill();
                 bProcess = null;
-            }
-
-            if (startTask != null)
-            {
-                startTask = null;
-            }
-            
-                
+            }    
         }
-        private int queryImage(string qpath)
+        private async void queryImage(string qpath)
         {
-            
             //Starting voctreeQuery as new Process
-            qProcess = new Process();
+            //qProcess.Add(new Process());
+            Process qProcess = new Process();
             try
             {
                 qProcess.StartInfo.FileName = "engine.exe";
@@ -264,50 +280,95 @@ namespace VocTreeGUI
                 qProcess.Start();
                 qProcess.BeginErrorReadLine();
                 string output = qProcess.StandardOutput.ReadToEnd();
-                qProcess.WaitForExit();
+                qProcess.WaitForExit(2000);
                 queryTimer.Stop();
-                queryOutput = output;
-                return 1;
+                ProcessOutput(output);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                return 0;
+                MessageBox.Show("Error at queryImage:\n"+ex.Message);
             }
         }
-        private void ShowResults()
+        private void ProcessOutput(string input)
         {
             try
             {
                 //Format the Output to extract the Images
-                String[] matches = queryOutput.Split('\n').Skip(4).ToArray();
+                
+                String[] matches = new string[5];
                 String[] scores = new string[5];
-                Label[] lableVek = new Label[5];
-                PictureBox[] PicVek = new PictureBox[5];
-                lableVek[0] = label3;
-                lableVek[1] = label4;
-                lableVek[2] = label5;
-                lableVek[3] = label6;
-                lableVek[4] = label7;
-                PicVek[0] = pictureBox1;
-                PicVek[1] = pictureBox2;
-                PicVek[2] = pictureBox3;
-                PicVek[3] = pictureBox4;
-                PicVek[4] = pictureBox5;
-
-                for (int i = 0; matches[i] != "\r" && matches[i] != "" && i < 5; i++)
+                String[] all_matches = input.Split('\n').Skip(4).ToArray();
+                for (int i = 0; all_matches[i] != "\r" && all_matches[i] != "" && i < 5; i++)
                 {
-                    string[] temp = matches[i].Split(',');
+
+                    string[] temp = all_matches[i].Split(',');
                     scores[i] = temp[0];
                     matches[i] = temp[2].Remove(0, 1).Replace('/', '\\');
-                    //Show first 5 Image Results
-                    PicVek[i].Image = new Bitmap(path + matches[i]);
-                    //And top weights
-                    lableVek[i].Text = scores[i];
                 }
-            }catch(Exception e)
+                //Add results to Collection
+                score_result.Add(scores);
+                pic_result.Add(matches);
+            }
+            catch (Exception ex)
             {
-                Console.WriteLine(e.Message);
+                MessageBox.Show("Error at ProcessOutput:\n" + ex.Message);
+            }
+        }
+        private async Task ShowResults(bool isFile)
+        {
+            try
+            {
+                if (isFile)
+                {
+                    await Task.Run(() => queryImage(textBox2.Text));
+                    times_result.Add(queryTimer.ElapsedMilliseconds);
+                    for (int i = 0; i < pic_result[0].Length; i++)
+                    {
+                        //Show first 5 Image Results
+                        PicVek[i].Image = new Bitmap(path + pic_result[0][i]);
+                        //And the labels
+                        lableVek[i].Text = score_result[0][i];
+                    }
+
+                    labTimer.Text = times_result[0].ToString() + " ms";
+                }
+                else
+                {
+                    //List<Task<int>> tasks = new List<Task<int>>();
+                    List<string> output = new List<string>();
+                    for (int i = 0; i < fileList.Count; i++)
+                    {
+                        await Task.Run(() => queryImage(fileList[i]));
+                        times_result.Add(queryTimer.ElapsedMilliseconds);
+                    }
+                    //Display everything
+                    for (int i = 0; i < pic_result[0].Length; i++)
+                    {
+                        //Show first 5 Image Results
+                        PicVek[i].Image = new Bitmap(path + pic_result[0][i]);
+                        //And the labels
+                        lableVek[i].Text = score_result[0][i];
+                    }
+                    labTimer.Text = times_result[0].ToString() + " ms";
+                }
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Error at Show Results:\n"+e.Message);
+            }
+        }
+        private void button3_Click(object sender, EventArgs e)//Query Button
+        {
+            //Task.Run(() => ShowResults(isFile));
+            
+            qProcess.Clear();
+            score_result.Clear();
+            pic_result.Clear();
+            times_result.Clear();
+            listBox1.SelectedIndex = 0;
+            if (Serv_running)
+            { 
+                ShowResults(isFile);
             }
         }
         private void btnStart_Click(object sender, EventArgs e)
@@ -316,18 +377,28 @@ namespace VocTreeGUI
             if (startTask != null && sProcess != null) {
                 stopServ();
             }
-            startTask = new Task(startServ);
-            startTask.Start();
+            Task.Run(() => startServ());
             controlBar("start");
+            Serv_running = true;
 
         }
-
         private void numPCA_ValueChanged(object sender, EventArgs e) => pca = numPCA.Value == 0 ? "" : "-pca " + numPCA.Value + " ";
         private void numBranch_ValueChanged(object sender, EventArgs e) => vtpK = numBranch.Value.ToString();
         private void numHeight_ValueChanged(object sender, EventArgs e) => vtpH = numHeight.Value.ToString();
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             pictureBoxMain.Image = new Bitmap(fileList[listBox1.SelectedIndex]);
+
+            if (pic_result.Count == fileList.Count) {
+                for (int i = 0; i < pic_result[listBox1.SelectedIndex].Length; i++)
+                {
+                    //Show first 5 Image Results
+                    PicVek[i].Image = new Bitmap(path + pic_result[listBox1.SelectedIndex][i]);
+                    //And the labels
+                    lableVek[i].Text = score_result[listBox1.SelectedIndex][i];
+                }
+                labTimer.Text = times_result[listBox1.SelectedIndex].ToString() + " ms";
+            }
         }
         static void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
         {
@@ -339,26 +410,6 @@ namespace VocTreeGUI
         {
             //Stop the Server
             stopServ();
-        }
-        private void button3_Click(object sender, EventArgs e)
-        { //Query Button
-            if (isFile)//File or Directory loaded?
-            {
-                Task<int> queryTask = Task.Run(() => queryImage(textBox2.Text));
-                queryTask.Wait();
-                ShowResults();
-                labTimer.Text = queryTimer.ElapsedMilliseconds.ToString() + " ms";
-            }
-            else
-            {
-                List<Task<int>> tasks = new List<Task<int>>();
-                foreach (string f in fileList)
-                {
-                    tasks.Add(Task.Run(() => queryImage(f)));
-                    Task<int> queryTask = Task.Run(() => queryImage(f));
-                }
-
-            }
         }
         private void comboDetect_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -378,13 +429,6 @@ namespace VocTreeGUI
             {
                 reuse = "-reuse ";
             }
-        }
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-        }
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-            
         }
         private void button2_Click(object sender, EventArgs e)//Browser File
         {
