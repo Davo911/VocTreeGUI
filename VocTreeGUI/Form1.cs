@@ -450,18 +450,22 @@ namespace VocTreeGUI
                 textBox2.Text = fbd.SelectedPath;
                 fileList = new List<string>(Directory.GetFiles(textBox2.Text, "*", SearchOption.AllDirectories));
                 List<string> filenames = new List<string>();//Just FileNames
-                for(int i = 0; i < fileList.Count; i++)
+
+                var matchingvalues = fileList.Where(stringToCheck => stringToCheck.EndsWith(".jpg")
+                                                                    || stringToCheck.EndsWith(".JPG")
+                                                                    || stringToCheck.EndsWith(".jpeg")
+                                                                    || stringToCheck.EndsWith(".JPEG")
+                                                                    || stringToCheck.EndsWith(".png")
+                                                                    || stringToCheck.EndsWith(".PNG")
+                                                                    || stringToCheck.EndsWith(".bmp")
+                                                                    || stringToCheck.EndsWith(".BMP"));
+                fileList = matchingvalues.ToList<string>();
+                filenames = fileList.ToList();
+                for (int i = 0; i < filenames.Count; i++)
                 {
-                    string ext = fileList[i].Split('.')[(fileList[i].Split('.').Length - 1)];
-                    if (ext != "jpg" && ext != "jpeg" && ext != "png" && ext != "bmp")
-                    {
-                        fileList.RemoveAt(i);
-                    }
-                    else
-                    {
-                        filenames.Add(fileList[i].Split('\\').Last());
-                    }
+                    filenames[i] = filenames[i].Split('\\').Last();
                 }
+
 
                 listBox1.DisplayMember = "File";
                 listBox1.ValueMember = "Location";
