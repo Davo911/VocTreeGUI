@@ -69,9 +69,10 @@
             this.button4 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.circularProgressBar1 = new CircularProgressBar.CircularProgressBar();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -130,18 +131,20 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(4, 4);
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.pictureBox1.Location = new System.Drawing.Point(6, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(196, 154);
+            this.pictureBox1.Size = new System.Drawing.Size(196, 161);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(211, 4);
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.pictureBox2.Location = new System.Drawing.Point(213, 4);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(196, 154);
+            this.pictureBox2.Size = new System.Drawing.Size(196, 161);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 6;
             this.pictureBox2.TabStop = false;
@@ -150,25 +153,27 @@
             // 
             this.pictureBox3.Location = new System.Drawing.Point(418, 4);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(196, 154);
+            this.pictureBox3.Size = new System.Drawing.Size(196, 161);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 7;
             this.pictureBox3.TabStop = false;
             // 
             // pictureBox4
             // 
-            this.pictureBox4.Location = new System.Drawing.Point(625, 4);
+            this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.pictureBox4.Location = new System.Drawing.Point(627, 4);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(196, 154);
+            this.pictureBox4.Size = new System.Drawing.Size(196, 161);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox4.TabIndex = 8;
             this.pictureBox4.TabStop = false;
             // 
             // pictureBox5
             // 
-            this.pictureBox5.Location = new System.Drawing.Point(832, 4);
+            this.pictureBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.pictureBox5.Location = new System.Drawing.Point(835, 4);
             this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(196, 154);
+            this.pictureBox5.Size = new System.Drawing.Size(196, 161);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox5.TabIndex = 9;
             this.pictureBox5.TabStop = false;
@@ -207,7 +212,7 @@
             // 
             this.btnQuery.Location = new System.Drawing.Point(6, 49);
             this.btnQuery.Name = "btnQuery";
-            this.btnQuery.Size = new System.Drawing.Size(79, 66);
+            this.btnQuery.Size = new System.Drawing.Size(100, 66);
             this.btnQuery.TabIndex = 14;
             this.btnQuery.Text = "Perform Query(s)!";
             this.btnQuery.UseVisualStyleBackColor = true;
@@ -453,7 +458,7 @@
             // 
             this.labBuildTime.AutoSize = true;
             this.labBuildTime.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labBuildTime.Location = new System.Drawing.Point(10, 111);
+            this.labBuildTime.Location = new System.Drawing.Point(12, 111);
             this.labBuildTime.Name = "labBuildTime";
             this.labBuildTime.Size = new System.Drawing.Size(80, 18);
             this.labBuildTime.TabIndex = 34;
@@ -517,49 +522,6 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Server";
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.textBox2);
-            this.groupBox4.Controls.Add(this.button2);
-            this.groupBox4.Controls.Add(this.listBox1);
-            this.groupBox4.Controls.Add(this.labTimer);
-            this.groupBox4.Controls.Add(this.button4);
-            this.groupBox4.Controls.Add(this.btnQuery);
-            this.groupBox4.Controls.Add(this.pictureBoxMain);
-            this.groupBox4.Location = new System.Drawing.Point(12, 157);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1039, 334);
-            this.groupBox4.TabIndex = 39;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Query";
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox5, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox4, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox3, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label7, 4, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label6, 3, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox2, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 497);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1039, 190);
-            this.tableLayoutPanel1.TabIndex = 41;
-            // 
             // circularProgressBar1
             // 
             this.circularProgressBar1.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
@@ -593,6 +555,58 @@
             this.circularProgressBar1.Text = "Stopped";
             this.circularProgressBar1.TextMargin = new System.Windows.Forms.Padding(0);
             this.circularProgressBar1.Value = 50;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.progressBar1);
+            this.groupBox4.Controls.Add(this.textBox2);
+            this.groupBox4.Controls.Add(this.button2);
+            this.groupBox4.Controls.Add(this.listBox1);
+            this.groupBox4.Controls.Add(this.labTimer);
+            this.groupBox4.Controls.Add(this.button4);
+            this.groupBox4.Controls.Add(this.btnQuery);
+            this.groupBox4.Controls.Add(this.pictureBoxMain);
+            this.groupBox4.Location = new System.Drawing.Point(12, 157);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(1039, 334);
+            this.groupBox4.TabIndex = 39;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Query";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(6, 123);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(100, 23);
+            this.progressBar1.Step = 1;
+            this.progressBar1.TabIndex = 40;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox4, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox3, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox2, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox5, 4, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 497);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1039, 190);
+            this.tableLayoutPanel1.TabIndex = 41;
             // 
             // Form1
             // 
@@ -673,6 +687,7 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private CircularProgressBar.CircularProgressBar circularProgressBar1;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 

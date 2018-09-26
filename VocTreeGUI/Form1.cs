@@ -18,10 +18,9 @@ namespace VocTreeGUI
 
         PictureBox[] PicVek;
         Label[] lableVek;
-        string path = "C:\\Users\\David\\Desktop\\VocTreeDatasets\\Dataset8";
+        string path;
         List<Process> qProcess;
         Process sProcess, bProcess;
-        Task<string> startTask;
         string TreeParam, reuse, extractor, detector,vtpK,vtpH,pca;
         Stopwatch queryTimer, buildTimer;
         List<string> dirList, fileList,files_chk;
@@ -67,11 +66,12 @@ namespace VocTreeGUI
         }
         private void button1_Click(object sender, EventArgs e)//Load Dataset
         {
-            dirList.Clear();
-            files_chk.Clear();
+            
             FolderBrowserDialog ofd = new FolderBrowserDialog();
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+                stopServ();
+                resetAll();
                 path = ofd.SelectedPath;
                 textBox1.Text = path;
                 string[] filesInDir = Directory.GetFiles(path); // should get config file
@@ -99,37 +99,41 @@ namespace VocTreeGUI
                 }
                 else if(File.Exists(path+ "\\data\\voctree_info.xml"))//Folderstructure OK, load Treee Data
                 {
-                    try
-                    {
-                        XmlDocument xdoc = new XmlDocument();
-                        xdoc.Load(path + "\\data\\voctree_info.xml");
-                        List<string> temp = new List<string>();
-                        foreach (XmlNode node in xdoc.DocumentElement.ChildNodes)
-                        {
-                            temp.Add(node.InnerText);
-                        }
-                        using (StreamReader sr = new StreamReader(path + "\\data\\method.txt"))
-                        {
-                            temp.Add(sr.ReadToEnd());
-                        }
-
-                        TreeParam =  "Tree Info:\r\n" + temp[8] + "\r\n"
-                            + "MAX Height(H)      : " + temp[1] + "\r\n"
-                            + "Children by Node(K): " + temp[0] + "\r\n"
-                            + "DB file count      : " + temp[3] + "\r\n"
-                            + "Total Nodes        : " + temp[5] + "\r\n"
-                            + "Total Leaves       : " + temp[6] + "\r\n"
-                            + "Total Descriptors  : " + temp[7] + "\r\n";
-                        textOutput.Text = TreeParam;
-                    }
-                    catch(Exception ex)
-                    {
-                        MessageBox.Show("Error Loading Tree Info XML\nError: " + ex.Message);
-                    }
+                    loadVocTreeInfoxml();
                 }
 
             }
 
+        }
+        private void loadVocTreeInfoxml()
+        {
+            try
+            {
+                XmlDocument xdoc = new XmlDocument();
+                xdoc.Load(path + "\\data\\voctree_info.xml");
+                List<string> temp = new List<string>();
+                foreach (XmlNode node in xdoc.DocumentElement.ChildNodes)
+                {
+                    temp.Add(node.InnerText);
+                }
+                using (StreamReader sr = new StreamReader(path + "\\data\\method.txt"))
+                {
+                    temp.Add(sr.ReadToEnd());
+                }
+
+                TreeParam = "Tree Info:\r\n" + temp[8] + "\r\n"
+                    + "MAX Height(H)      : " + temp[1] + "\r\n"
+                    + "Children by Node(K): " + temp[0] + "\r\n"
+                    + "DB file count      : " + temp[3] + "\r\n"
+                    + "Total Nodes        : " + temp[5] + "\r\n"
+                    + "Total Leaves       : " + temp[6] + "\r\n"
+                    + "Total Descriptors  : " + temp[7] + "\r\n";
+                textOutput.Text = TreeParam;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Loading Tree Info XML\nError: " + ex.Message);
+            }
         }
         private async void btnBuild_Click(object sender, EventArgs e)
         {
@@ -139,7 +143,16 @@ namespace VocTreeGUI
                 await Task.Run(() => createDatabase());
                 controlBar("stop");
                 textOutput.Text = "Build Finished";
-                labBuildTime.Text = Math.Round((((double)buildTimer.Elapsed.TotalMilliseconds) / 1000), 3) + "sec";
+                var time = buildTimer.Elapsed;
+                if (time.TotalSeconds > 100)
+                {
+                    labBuildTime.Text = time.Minutes + " m " + time.Seconds + " s";
+                }
+                else
+                { 
+                    labBuildTime.Text = time.Seconds + "sec";
+                }
+                loadVocTreeInfoxml();
             }
             else
             {
@@ -243,7 +256,9 @@ namespace VocTreeGUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error at startServer:\n"+ex.Message);
+                if (ex.Message != "Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt.") {
+                    MessageBox.Show("Error at startServer:\n" + ex.Message);
+                }
             }
         }
         private void stopServ()
@@ -314,35 +329,59 @@ namespace VocTreeGUI
                 MessageBox.Show("Error at ProcessOutput:\n" + ex.Message);
             }
         }
+        private void resetAll()
+        {
+            progressBar1.Value = 0;
+            fileList.Clear();
+            dirList.Clear();
+            files_chk.Clear();
+            listBox1.DataSource = null;
+            listBox1.Items.Clear();
+            qProcess.Clear();
+            score_result.Clear();
+            pic_result.Clear();
+            times_result.Clear();
+            if (listBox1.Items.Count > 0)
+                listBox1.SelectedIndex = 0;
+            foreach (var minipic in PicVek)
+            {
+                minipic.Image = null;
+            }
+            
+        }
         private async Task ShowResults(bool isFile)
         {
             try
             {
                 if (isFile)
                 {
+                    times_result.Clear();
                     await Task.Run(() => queryImage(textBox2.Text));
                     times_result.Add(queryTimer.ElapsedMilliseconds);
-                    for (int i = 0; i < pic_result[0].Length; i++)
+                    for (int i = 0; i < pic_result[0].Length && pic_result[0][i] != null; i++)
                     {
                         //Show first 5 Image Results
                         PicVek[i].Image = new Bitmap(path + pic_result[0][i]);
                         //And the labels
                         lableVek[i].Text = score_result[0][i];
                     }
-
+                    progressBar1.Value = 100;
                     labTimer.Text = times_result[0].ToString() + " ms";
                 }
                 else
                 {
                     //List<Task<int>> tasks = new List<Task<int>>();
                     List<string> output = new List<string>();
+                    
                     for (int i = 0; i < fileList.Count; i++)
                     {
                         await Task.Run(() => queryImage(fileList[i]));
                         times_result.Add(queryTimer.ElapsedMilliseconds);
+                        progressBar1.Value = (100 * (i+1))/ fileList.Count;
+
                     }
                     //Display everything
-                    for (int i = 0; i < pic_result[0].Length; i++)
+                    for (int i = 0; i < pic_result[0].Length && pic_result[0][i] != null; i++)
                     {
                         //Show first 5 Image Results
                         PicVek[i].Image = new Bitmap(path + pic_result[0][i]);
@@ -360,12 +399,7 @@ namespace VocTreeGUI
         private void button3_Click(object sender, EventArgs e)//Query Button
         {
             //Task.Run(() => ShowResults(isFile));
-            
-            qProcess.Clear();
-            score_result.Clear();
-            pic_result.Clear();
-            times_result.Clear();
-            listBox1.SelectedIndex = 0;
+
             if (Serv_running)
             { 
                 ShowResults(isFile);
@@ -374,7 +408,7 @@ namespace VocTreeGUI
         private void btnStart_Click(object sender, EventArgs e)
         {
             //Sollte mit Hreads geläst werden, da sonst neuer prozess hauptprogramm blockiert?
-            if (startTask != null && sProcess != null) {
+            if (sProcess != null) {
                 stopServ();
             }
             Task.Run(() => startServ());
@@ -387,10 +421,10 @@ namespace VocTreeGUI
         private void numHeight_ValueChanged(object sender, EventArgs e) => vtpH = numHeight.Value.ToString();
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            pictureBoxMain.Image = new Bitmap(fileList[listBox1.SelectedIndex]);
+            pictureBoxMain.Image = new Bitmap(fileList[listBox1.SelectedIndex >= 0 ? listBox1.SelectedIndex : 0]);
 
-            if (pic_result.Count == fileList.Count) {
-                for (int i = 0; i < pic_result[listBox1.SelectedIndex].Length; i++)
+            if (pic_result.Count == fileList.Count && listBox1.SelectedIndex != -1) {
+                for (int i = 0; i < pic_result[listBox1.SelectedIndex].Length && pic_result[listBox1.SelectedIndex][i] != null; i++)
                 {
                     //Show first 5 Image Results
                     PicVek[i].Image = new Bitmap(path + pic_result[listBox1.SelectedIndex][i]);
@@ -432,13 +466,16 @@ namespace VocTreeGUI
         }
         private void button2_Click(object sender, EventArgs e)//Browser File
         {
+            
             isFile = true;
             OpenFileDialog ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                resetAll();
                 textBox2.Text = ofd.FileName;
-                
+                fileList.Add(textBox2.Text);
                 pictureBoxMain.Image = new Bitmap(textBox2.Text);
+                listBox1.Items.Add(textBox2.Text.Split('\\').Last());
             }
         }
         private void button4_Click(object sender, EventArgs e)//Browse Directory
@@ -447,6 +484,7 @@ namespace VocTreeGUI
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             if(fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                resetAll();
                 textBox2.Text = fbd.SelectedPath;
                 fileList = new List<string>(Directory.GetFiles(textBox2.Text, "*", SearchOption.AllDirectories));
                 List<string> filenames = new List<string>();//Just FileNames
