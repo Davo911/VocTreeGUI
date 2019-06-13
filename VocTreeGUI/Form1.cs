@@ -135,6 +135,7 @@ namespace VocTreeGUI
             }
 
         }
+        /*
         private void CamLiveView(object sender, EventArgs arg)
         {
             resetAll();
@@ -150,6 +151,7 @@ namespace VocTreeGUI
 
 
         }
+        */
         private void controlBar(string zustand)
         {
             switch (zustand)
@@ -787,8 +789,10 @@ namespace VocTreeGUI
                 
             }
         }
+
         private void ToggleCam_CheckedChanged(object sender, EventArgs e)
         {
+            /*
             cam = true ? cam == false : false;
 
             if (cam)
@@ -804,7 +808,7 @@ namespace VocTreeGUI
                 pictureBoxMain.Image = null;
             }
             
-            
+            */
                 
         }
         private void Form1_DragDrop(object sender, DragEventArgs e)
