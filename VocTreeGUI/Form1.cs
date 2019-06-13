@@ -427,6 +427,7 @@ namespace VocTreeGUI
                     labAVG.Visible = true;
                     labAVG.Text = "Ø" + Math.Round(times_result.Average()) + "ms";
 
+                    //Check and Calculate Prezision
                     for (int i = 0; i < fileList.Count; i++)
                     {
                         int[] res = CheckGroundTruthOx5k(fileList[i], i);
