@@ -53,6 +53,8 @@
             this.labQTime = new System.Windows.Forms.Label();
             this.labAccuracy = new System.Windows.Forms.Label();
             this.labTOP5 = new System.Windows.Forms.Label();
+            this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
+            this.checkOnDisk = new MetroFramework.Controls.MetroToggle();
             this.labBuildTime = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -88,16 +90,17 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
+            this.metroButton7 = new MetroFramework.Controls.MetroButton();
             this.mBtnKill = new MetroFramework.Controls.MetroButton();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
             this.metroButton6 = new MetroFramework.Controls.MetroButton();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.metroTile1 = new MetroFramework.Controls.MetroTile();
             this.metroPanel2 = new MetroFramework.Controls.MetroPanel();
-            this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
-            this.checkOnDisk = new MetroFramework.Controls.MetroToggle();
-            this.metroButton7 = new MetroFramework.Controls.MetroButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numHeight)).BeginInit();
@@ -117,6 +120,8 @@
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.metroPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.SuspendLayout();
             // 
             // labTimer
@@ -327,7 +332,8 @@
             this.metroToggle1.AutoSize = true;
             this.metroToggle1.Checked = true;
             this.metroToggle1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.metroToggle1.Location = new System.Drawing.Point(1141, 36);
+            this.metroToggle1.Enabled = false;
+            this.metroToggle1.Location = new System.Drawing.Point(1322, 63);
             this.metroToggle1.Name = "metroToggle1";
             this.metroToggle1.Size = new System.Drawing.Size(80, 21);
             this.metroToggle1.TabIndex = 50;
@@ -339,6 +345,7 @@
             // ToggleCam
             // 
             this.ToggleCam.AutoSize = true;
+            this.ToggleCam.Enabled = false;
             this.ToggleCam.Location = new System.Drawing.Point(906, 33);
             this.ToggleCam.Name = "ToggleCam";
             this.ToggleCam.Size = new System.Drawing.Size(80, 21);
@@ -387,11 +394,11 @@
             // 
             this.metroLabel7.AutoSize = true;
             this.metroLabel7.FontSize = MetroFramework.MetroLabelSize.Small;
-            this.metroLabel7.Location = new System.Drawing.Point(1141, 16);
+            this.metroLabel7.Location = new System.Drawing.Point(1322, 43);
             this.metroLabel7.Name = "metroLabel7";
-            this.metroLabel7.Size = new System.Drawing.Size(95, 17);
+            this.metroLabel7.Size = new System.Drawing.Size(43, 17);
             this.metroLabel7.TabIndex = 51;
-            this.metroLabel7.Text = "Expertenansicht";
+            this.metroLabel7.Text = "Expert";
             this.toolTip1.SetToolTip(this.metroLabel7, "Future Feature");
             // 
             // labAVG
@@ -450,6 +457,31 @@
             this.labTOP5.Text = "100 %";
             this.toolTip1.SetToolTip(this.labTOP5, "Median time per Query");
             this.labTOP5.Visible = false;
+            // 
+            // metroLabel12
+            // 
+            this.metroLabel12.AutoSize = true;
+            this.metroLabel12.FontSize = MetroFramework.MetroLabelSize.Small;
+            this.metroLabel12.Location = new System.Drawing.Point(943, 117);
+            this.metroLabel12.Name = "metroLabel12";
+            this.metroLabel12.Size = new System.Drawing.Size(76, 17);
+            this.metroLabel12.TabIndex = 54;
+            this.metroLabel12.Text = "Calc on Disk";
+            this.toolTip1.SetToolTip(this.metroLabel12, "Calculate Nodes on Disk instead of the RAM\r\nAttention: Could generate massive amo" +
+        "unt of Files! ");
+            // 
+            // checkOnDisk
+            // 
+            this.checkOnDisk.AutoSize = true;
+            this.checkOnDisk.Location = new System.Drawing.Point(943, 90);
+            this.checkOnDisk.Name = "checkOnDisk";
+            this.checkOnDisk.Size = new System.Drawing.Size(80, 21);
+            this.checkOnDisk.TabIndex = 53;
+            this.checkOnDisk.Text = "Aus";
+            this.toolTip1.SetToolTip(this.checkOnDisk, "Calculate Nodes on Disk instead of the RAM\r\nAttention: Could generate massive amo" +
+        "unt of Files! ");
+            this.checkOnDisk.UseSelectable = true;
+            this.checkOnDisk.CheckedChanged += new System.EventHandler(this.checkOnDisk_CheckedChanged);
             // 
             // labBuildTime
             // 
@@ -987,7 +1019,6 @@
             this.metroPanel1.Controls.Add(this.metroButton7);
             this.metroPanel1.Controls.Add(this.mBtnKill);
             this.metroPanel1.Controls.Add(this.groupBox5);
-            this.metroPanel1.Controls.Add(this.metroTile1);
             this.metroPanel1.Controls.Add(this.textOutput);
             this.metroPanel1.Controls.Add(this.groupBox4);
             this.metroPanel1.Controls.Add(this.tableLayoutPanel1);
@@ -997,19 +1028,29 @@
             this.metroPanel1.HorizontalScrollbarSize = 10;
             this.metroPanel1.Location = new System.Drawing.Point(9, 3);
             this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(1412, 701);
+            this.metroPanel1.Size = new System.Drawing.Size(1412, 711);
             this.metroPanel1.TabIndex = 42;
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel1.VerticalScrollbarSize = 10;
             // 
+            // metroButton7
+            // 
+            this.metroButton7.Location = new System.Drawing.Point(1048, 618);
+            this.metroButton7.Name = "metroButton7";
+            this.metroButton7.Size = new System.Drawing.Size(75, 23);
+            this.metroButton7.TabIndex = 58;
+            this.metroButton7.Text = "LoadOX";
+            this.metroButton7.UseSelectable = true;
+            this.metroButton7.Click += new System.EventHandler(this.metroButton7_Click);
+            // 
             // mBtnKill
             // 
             this.mBtnKill.BackColor = System.Drawing.Color.LightGreen;
             this.mBtnKill.Enabled = false;
-            this.mBtnKill.Location = new System.Drawing.Point(1219, 607);
+            this.mBtnKill.Location = new System.Drawing.Point(1048, 589);
             this.mBtnKill.Name = "mBtnKill";
-            this.mBtnKill.Size = new System.Drawing.Size(131, 23);
+            this.mBtnKill.Size = new System.Drawing.Size(109, 23);
             this.mBtnKill.TabIndex = 57;
             this.mBtnKill.Text = "Kill Background Tasks";
             this.mBtnKill.UseCustomBackColor = true;
@@ -1021,7 +1062,7 @@
             this.groupBox5.Controls.Add(this.metroLabel8);
             this.groupBox5.Controls.Add(this.metroButton6);
             this.groupBox5.Controls.Add(this.numericUpDown1);
-            this.groupBox5.Location = new System.Drawing.Point(1048, 593);
+            this.groupBox5.Location = new System.Drawing.Point(1048, 495);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(165, 88);
             this.groupBox5.TabIndex = 56;
@@ -1060,68 +1101,61 @@
             0,
             0});
             // 
-            // metroTile1
-            // 
-            this.metroTile1.ActiveControl = null;
-            this.metroTile1.AutoSize = true;
-            this.metroTile1.Location = new System.Drawing.Point(1048, 495);
-            this.metroTile1.Name = "metroTile1";
-            this.metroTile1.Size = new System.Drawing.Size(113, 51);
-            this.metroTile1.TabIndex = 55;
-            this.metroTile1.Text = "Analyze";
-            this.metroTile1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.metroTile1.TileImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.metroTile1.UseSelectable = true;
-            this.metroTile1.UseTileImage = true;
-            // 
             // metroPanel2
             // 
             this.metroPanel2.Controls.Add(this.metroPanel1);
             this.metroPanel2.HorizontalScrollbarBarColor = true;
             this.metroPanel2.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanel2.HorizontalScrollbarSize = 10;
-            this.metroPanel2.Location = new System.Drawing.Point(12, 63);
+            this.metroPanel2.Location = new System.Drawing.Point(12, 92);
             this.metroPanel2.Name = "metroPanel2";
-            this.metroPanel2.Size = new System.Drawing.Size(1424, 818);
+            this.metroPanel2.Size = new System.Drawing.Size(1424, 731);
             this.metroPanel2.TabIndex = 52;
             this.metroPanel2.VerticalScrollbarBarColor = true;
             this.metroPanel2.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel2.VerticalScrollbarSize = 10;
             // 
-            // metroLabel12
+            // label1
             // 
-            this.metroLabel12.AutoSize = true;
-            this.metroLabel12.FontSize = MetroFramework.MetroLabelSize.Small;
-            this.metroLabel12.Location = new System.Drawing.Point(943, 117);
-            this.metroLabel12.Name = "metroLabel12";
-            this.metroLabel12.Size = new System.Drawing.Size(76, 17);
-            this.metroLabel12.TabIndex = 54;
-            this.metroLabel12.Text = "Calc on Disk";
-            this.toolTip1.SetToolTip(this.metroLabel12, "Calculate Nodes on Disk instead of the RAM\r\nAttention: Could generate massive amo" +
-        "unt of Files! ");
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Trajan Pro", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.label1.Location = new System.Drawing.Point(15, 39);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(148, 36);
+            this.label1.TabIndex = 54;
+            this.label1.Text = "VocTree";
             // 
-            // checkOnDisk
+            // label2
             // 
-            this.checkOnDisk.AutoSize = true;
-            this.checkOnDisk.Location = new System.Drawing.Point(943, 90);
-            this.checkOnDisk.Name = "checkOnDisk";
-            this.checkOnDisk.Size = new System.Drawing.Size(80, 21);
-            this.checkOnDisk.TabIndex = 53;
-            this.checkOnDisk.Text = "Aus";
-            this.toolTip1.SetToolTip(this.checkOnDisk, "Calculate Nodes on Disk instead of the RAM\r\nAttention: Could generate massive amo" +
-        "unt of Files! ");
-            this.checkOnDisk.UseSelectable = true;
-            this.checkOnDisk.CheckedChanged += new System.EventHandler(this.checkOnDisk_CheckedChanged);
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Trajan Pro", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(154)))), ((int)(((byte)(154)))));
+            this.label2.Location = new System.Drawing.Point(163, 39);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(160, 36);
+            this.label2.TabIndex = 55;
+            this.label2.Text = "Analyzer";
             // 
-            // metroButton7
+            // pictureBox7
             // 
-            this.metroButton7.Location = new System.Drawing.Point(1233, 523);
-            this.metroButton7.Name = "metroButton7";
-            this.metroButton7.Size = new System.Drawing.Size(75, 23);
-            this.metroButton7.TabIndex = 58;
-            this.metroButton7.Text = "LoadOX";
-            this.metroButton7.UseSelectable = true;
-            this.metroButton7.Click += new System.EventHandler(this.metroButton7_Click);
+            this.pictureBox7.Image = global::VocTreeGUI.Properties.Resources.logo_archaeoanalytics_grau;
+            this.pictureBox7.Location = new System.Drawing.Point(930, 14);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(286, 75);
+            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox7.TabIndex = 56;
+            this.pictureBox7.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
+            this.pictureBox6.Location = new System.Drawing.Point(1222, 9);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(85, 83);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox6.TabIndex = 53;
+            this.pictureBox6.TabStop = false;
             // 
             // Form1
             // 
@@ -1129,16 +1163,17 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
-            this.ClientSize = new System.Drawing.Size(1443, 789);
+            this.ClientSize = new System.Drawing.Size(1443, 835);
+            this.Controls.Add(this.pictureBox7);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.metroPanel2);
             this.Controls.Add(this.metroLabel7);
             this.Controls.Add(this.metroToggle1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Resizable = false;
             this.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow;
-            this.Text = "VocTreeAnalyzer";
             this.TransparencyKey = System.Drawing.Color.Empty;
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
@@ -1163,11 +1198,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.metroPanel1.ResumeLayout(false);
-            this.metroPanel1.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.metroPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1226,13 +1262,8 @@
         private MetroFramework.Controls.MetroLabel metroLabel7;
         private MetroFramework.Controls.MetroButton metroButton1;
         private System.Windows.Forms.Label labAVG;
-        private MetroFramework.Controls.MetroButton metroButton6;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private MetroFramework.Controls.MetroLabel metroLabel8;
         private MetroFramework.Controls.MetroLabel metroLabel9;
         private MetroFramework.Controls.MetroToggle ToggleCam;
-        private MetroFramework.Controls.MetroTile metroTile1;
-        private System.Windows.Forms.GroupBox groupBox5;
         private MetroFramework.Controls.MetroPanel metroPanel2;
         private MetroFramework.Controls.MetroButton mBtnKill;
         private MetroFramework.Controls.MetroLabel metroLabel11;
@@ -1242,6 +1273,14 @@
         private MetroFramework.Controls.MetroLabel metroLabel12;
         private MetroFramework.Controls.MetroToggle checkOnDisk;
         private MetroFramework.Controls.MetroButton metroButton7;
+        private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private MetroFramework.Controls.MetroLabel metroLabel8;
+        private MetroFramework.Controls.MetroButton metroButton6;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }
 

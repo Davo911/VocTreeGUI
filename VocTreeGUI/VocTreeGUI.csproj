@@ -146,8 +146,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="License-LGPL.txt" />
-    <None Include="Resources\konversion-icon_B2-Analyse.png" />
     <None Include="Resources\metro-back-button.jpg" />
+    <None Include="Resources\logo_archaeoanalytics_grau.png" />
     <Content Include="Tree.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -311,13 +311,12 @@ namespace VocTreeGUI
                 String[] matches = new string[5];
                 String[] scores = new string[5];
                 String[] all_matches = input.Split('\n').Skip(4).ToArray();
-                //NUR FÜR MESSUNG####
                 
-                //NUR FÜR MESSUNG####
+              
                 int time = Int16.Parse(input.Split(':').Last().TrimEnd('\r').TrimEnd('\n'));
                 for (int i = 0; all_matches[i] != "\r" && all_matches[i] != "" && i < 5; i++)
                 {
-                    if (all_matches[0].Split('|').First() == "0")
+                    if (all_matches[0].Split('|').First() == "0")  //NUR FÜR MESSUNG####
                     {
                         string[] temp = all_matches[i+1].Split('|');
                         scores[i] = temp[0];
@@ -445,8 +444,11 @@ namespace VocTreeGUI
                 {
                     //Show first 5 Image Results
                     toolTip1.SetToolTip(PicVek[i], pic_result[0][i]);
-                    PicVek[i].Image = new Bitmap(path + pic_result[0][i]);
-                   
+                    try
+                    {
+                        PicVek[i].Image = new Bitmap(path + pic_result[0][i]);
+                    }
+                    catch (Exception){ }
                     //And the labels
                     lableVek[i].Text = score_result[0][i];
                 }
@@ -511,6 +513,20 @@ namespace VocTreeGUI
                         }
                     }
                 }
+                return res;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error at GT-Check: " + ex.Message);
+                return null;
+            }
+        }
+        private int[] CheckDAIGroundTruth(string qfile, int index)
+        {
+            int[] res = { 0, 0, 0, 0, 0 };
+            string objID = qfile.Split('\\').Last().Split('_').Last().Split(',').First(); //....\\ASC-E-N0230_2114656,83.jpg
+            try
+            {
                 return res;
             }
             catch (Exception ex)
@@ -663,9 +679,6 @@ namespace VocTreeGUI
             labTOP5.Visible = true;
             labTOP5.Text = ((top5 * 100) / reslist.Count) + " %";
         }
-
-
-
 
         /*EVENT HANDLER*/
         void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
@@ -845,6 +858,7 @@ namespace VocTreeGUI
             LoadDir(@"C:\Users\David\Desktop\Datasets_Bases\oxbuild5k640x480");
             LoadImageFolder(@"C:\Users\David\Desktop\Datasets_Bases\oxbuild5k640x480\queries");
         }
+
         private void mBtnKill_Click(object sender, EventArgs e)
         {
             foreach (var process in Process.GetProcessesByName("engine")) //Kills Background voctree
@@ -914,16 +928,23 @@ namespace VocTreeGUI
                 {
                     for (int i = 0; i < pic_result[listBox1.SelectedIndex].Length && pic_result[listBox1.SelectedIndex][i] != null; i++)
                     {
-                        //Show first 5 Image Results
-                        PicVek[i].Image = new Bitmap(path + pic_result[listBox1.SelectedIndex][i]);
+                        try
+                        {
+                            //Show first 5 Image Results
+                            PicVek[i].Image = new Bitmap(path + pic_result[listBox1.SelectedIndex][i]);
+                        }
+                        catch (Exception) { }
+
                         //And the labels
                         lableVek[i].Text = score_result[listBox1.SelectedIndex][i];
+                        //And the Tooltips
+                        toolTip1.SetToolTip(PicVek[i], pic_result[listBox1.SelectedIndex][i]);
                     }
                     labTimer.Text = times_result[listBox1.SelectedIndex].ToString() + " ms";
                 }
                 labCount.Text = listBox1.SelectedIndex + "/" + fileList.Count;
 
-
+                //check groundtruth
                 if (reslist.Count > 0)
                 {
                     for (int j = 0; j < reslist[listBox1.SelectedIndex].Length; j++)

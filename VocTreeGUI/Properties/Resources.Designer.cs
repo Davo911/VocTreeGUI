@@ -63,9 +63,9 @@ namespace VocTreeGUI.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap konversion_icon_B2_Analyse {
+        internal static System.Drawing.Bitmap logo_archaeoanalytics_grau {
             get {
-                object obj = ResourceManager.GetObject("konversion-icon_B2-Analyse", resourceCulture);
+                object obj = ResourceManager.GetObject("logo_archaeoanalytics_grau", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

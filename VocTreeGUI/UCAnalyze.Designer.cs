@@ -47,7 +47,6 @@
             // 
             // imageBox1
             // 
-            this.imageBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imageBox1.BackgroundImage")));
             this.imageBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.imageBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.imageBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("imageBox1.InitialImage")));
@@ -59,7 +58,6 @@
             // 
             // imageBox2
             // 
-            this.imageBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imageBox2.BackgroundImage")));
             this.imageBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.imageBox2.Location = new System.Drawing.Point(332, 579);
             this.imageBox2.Name = "imageBox2";
@@ -69,7 +67,6 @@
             // 
             // imageBox3
             // 
-            this.imageBox3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imageBox3.BackgroundImage")));
             this.imageBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.imageBox3.Location = new System.Drawing.Point(549, 579);
             this.imageBox3.Name = "imageBox3";
@@ -79,7 +76,6 @@
             // 
             // imageBox4
             // 
-            this.imageBox4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imageBox4.BackgroundImage")));
             this.imageBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.imageBox4.Location = new System.Drawing.Point(767, 579);
             this.imageBox4.Name = "imageBox4";
@@ -89,7 +85,6 @@
             // 
             // imageBox5
             // 
-            this.imageBox5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imageBox5.BackgroundImage")));
             this.imageBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.imageBox5.Location = new System.Drawing.Point(332, 369);
             this.imageBox5.Name = "imageBox5";
@@ -99,7 +94,6 @@
             // 
             // imageBox6
             // 
-            this.imageBox6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imageBox6.BackgroundImage")));
             this.imageBox6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.imageBox6.Location = new System.Drawing.Point(657, 369);
             this.imageBox6.Name = "imageBox6";
