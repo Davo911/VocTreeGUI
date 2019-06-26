@@ -287,7 +287,9 @@ namespace VocTreeGUI
                                                                 || stringToCheck.EndsWith(".png")
                                                                 || stringToCheck.EndsWith(".PNG")
                                                                 || stringToCheck.EndsWith(".bmp")
-                                                                || stringToCheck.EndsWith(".BMP"));
+                                                                || stringToCheck.EndsWith(".BMP")
+                                                                || stringToCheck.EndsWith(".tiff")
+                                                                || stringToCheck.EndsWith(".TIFF"));
             fileList = matchingvalues.ToList<string>();
             filenames = fileList.ToList();
             for (int i = 0; i < filenames.Count; i++)
@@ -816,7 +818,7 @@ namespace VocTreeGUI
             var path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
             var ext = path.Split('.').Last();
             
-            if (ext == "jpg"|| ext == "JPG" || ext == "jpeg" || ext == "JPEG" || ext == "png" || ext == "PNG" || ext == "bmp" || ext == "BMP")
+            if (ext == "jpg"|| ext == "JPG" || ext == "jpeg" || ext == "JPEG" || ext == "png" || ext == "PNG" || ext == "bmp" || ext == "BMP"|| ext =="tiff" || ext == "TIFF")
             {
                 LoadImage(path);
             }
@@ -829,7 +831,7 @@ namespace VocTreeGUI
         {
             var path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
             var ext = path.Split('.').Last();
-            if (ext == "jpg" || ext == "JPG" || ext == "jpeg" || ext == "JPEG" || ext == "png" || ext == "PNG" || ext == "bmp" || ext == "BMP")
+            if (ext == "jpg" || ext == "JPG" || ext == "jpeg" || ext == "JPEG" || ext == "png" || ext == "PNG" || ext == "bmp" || ext == "BMP" || ext == "tiff" || ext == "TIFF")
             {
                 e.Effect = DragDropEffects.Link;
             }

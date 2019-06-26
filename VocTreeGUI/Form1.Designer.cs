@@ -1139,7 +1139,7 @@
             // 
             // pictureBox7
             // 
-            this.pictureBox7.Image = global::VocTreeGUI.Properties.Resources.logo_archaeoanalytics_grau;
+ //           this.pictureBox7.Image = global::VocTreeGUI.Properties.Resources.logo_archaeoanalytics_grau;
             this.pictureBox7.Location = new System.Drawing.Point(930, 14);
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.Size = new System.Drawing.Size(286, 75);
