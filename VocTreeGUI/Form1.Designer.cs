@@ -1237,13 +1237,14 @@
             // 
             // metroButton8
             // 
+            this.metroButton8.AccessibleDescription = "test";
             this.metroButton8.Location = new System.Drawing.Point(900, 502);
             this.metroButton8.Name = "metroButton8";
             this.metroButton8.Size = new System.Drawing.Size(75, 23);
-            this.metroButton8.TabIndex = 59;
+            this.metroButton8.TabIndex = 60;
             this.metroButton8.Text = "test";
             this.metroButton8.UseSelectable = true;
-            this.metroButton8.Click += new System.EventHandler(this.MetroButton8_Click);
+            this.metroButton8.Click += new System.EventHandler(this.MetroButton8_Click_1);
             // 
             // Form1
             // 

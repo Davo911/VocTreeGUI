@@ -14,6 +14,7 @@ using Emgu.CV;
 using Emgu.CV.UI;
 using Emgu.CV.Structure;
 
+
 namespace VocTreeGUI
 {
     public partial class Form1 : MetroFramework.Forms.MetroForm
@@ -541,31 +542,58 @@ namespace VocTreeGUI
             }
         }
 
-        private int[] checktruefactor(string qfile, int index) {
-            int[] res = { 0, 0, 0, 0, 0 };
+        private int checktruefactor(string qname, string rname, int index) {
+            string[] q_id = qname.Split('_').First().Split('-');
+            string[] r_id = rname.Split('_').First().Split('-');
             int count = 0;
-            while (count < qfile.Length && qfile[count] == '-') count++;
+            int gesamtanzahl=0;
+            if (q_id.Length > r_id.Length) {
 
-            if (count > 2) { qfile = qfile.Split('-').Last().Split('-').Last().Split('-').First(); };
-            if (count > 3) { qfile = qfile.Split('-').Last().Split('-').Last().Split('-').First().Split('-').First(); }
-            else{  
-                 MessageBox.Show("Fehler\r\n");
+                for (int j = 0; j < r_id.Length; j++) {
+                    if (q_id[j] == (r_id[j])) { count++; }
+                    else {
+                        if (j == 0) {
+                            break;
+                        }
+                    };
+                }
+                gesamtanzahl = q_id.Length;
+                gesamtanzahl = gesamtanzahl - count;
             }
-            int k = qfile.IndexOf("a");
-            string objID = qfile.Remove(k);
+            else if (q_id.Length < r_id.Length) {
+                for (int j = 0; j < q_id.Length; j++)
+                {
+                    if (q_id[j] == (r_id[j])) { count++; }
+                    else
+                    {
+                        if (j == 0)
+                        {
+                            break;
+                        }
+                    };
+                }
+                gesamtanzahl = r_id.Length;
+                gesamtanzahl = gesamtanzahl - count;
+            }
 
-            foreach (char File in objID) {
-                if (File.CompareTo(index) == 0) {//farbe grün 
+            else if (q_id.Length == r_id.Length) {
+                for (int j = 0; j < q_id.Length; j++)
+                {
+                    if (q_id[j] == (r_id[j])) { count++; }
+                    else
+                    {
+                        if (j == 0)
+                        {
+                            break;
+                        }
+                    }
                 }
-                if (File.CompareTo(index) < 0) {//farbe rot
-                }
-                if (File.CompareTo(index) > 0)
-                {//farbe orange?
-                }
-                else { MessageBox.Show("Fehler\r\n");
-                }
+                gesamtanzahl = r_id.Length;
+                gesamtanzahl = gesamtanzahl - count;
             }
-            return res;
+            MessageBox.Show("Results:\n" + gesamtanzahl);
+            return gesamtanzahl;
+
         }
         private int createDatabase(string task)
         {
@@ -749,12 +777,16 @@ namespace VocTreeGUI
 
             if (Serv_running)
             {
+
+
                 labDone.Visible = true;
                 lstOutput.Clear();
                 pic_result.Clear();
                 times_result.Clear();
                 score_result.Clear();
                 ShowResults(isFile);
+              
+
             }
         }
         private void btnStart_Click(object sender, EventArgs e)
@@ -896,6 +928,13 @@ namespace VocTreeGUI
         private void MetroButton8_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void MetroButton8_Click_1(object sender, EventArgs e)
+        {
+            string a = "1-2-3-4_kubach";
+            string b = "1-2-3_kubach";
+            checktruefactor(a, b, 1);
         }
 
         private void mBtnKill_Click(object sender, EventArgs e)
