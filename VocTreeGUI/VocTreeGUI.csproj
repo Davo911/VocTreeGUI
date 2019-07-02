@@ -137,5 +137,16 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CircularProgressBar">
+      <Version>2.7.0.7</Version>
+    </PackageReference>
+    <PackageReference Include="EMGU.CV">
+      <Version>4.1.0.3420</Version>
+    </PackageReference>
+    <PackageReference Include="MetroModernUI">
+      <Version>1.4.0</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

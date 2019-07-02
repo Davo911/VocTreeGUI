@@ -482,7 +482,7 @@ namespace VocTreeGUI
                     List<string> gts = new List<string>();
                     
                     //identify subset
-                    foreach (string file in gtFiles)
+                /*    foreach (string file in gtFiles)
                     {
                         if (file.Contains("query")) {
                             //Format: oxc1_all_souls_000013 136.5 34.1 648.5 955.7\n
@@ -496,7 +496,7 @@ namespace VocTreeGUI
                                 set = string.Join("_", temp);
                             }
                         }
-                    }
+                    }*/
                     for (int i = 0; i < gtFiles.Count; i++)
                     {
                         if (gtFiles[i].Contains(set) && !gtFiles[i].Contains("query"))
@@ -539,6 +539,33 @@ namespace VocTreeGUI
                 MessageBox.Show("Error at GT-Check: " + ex.Message);
                 return null;
             }
+        }
+
+        private int[] checktruefactor(string qfile, int index) {
+            int[] res = { 0, 0, 0, 0, 0 };
+            int count = 0;
+            while (count < qfile.Length && qfile[count] == '-') count++;
+
+            if (count > 2) { qfile = qfile.Split('-').Last().Split('-').Last().Split('-').First(); };
+            if (count > 3) { qfile = qfile.Split('-').Last().Split('-').Last().Split('-').First().Split('-').First(); }
+            else{  
+                 MessageBox.Show("Fehler\r\n");
+            }
+            int k = qfile.IndexOf("a");
+            string objID = qfile.Remove(k);
+
+            foreach (char File in objID) {
+                if (File.CompareTo(index) == 0) {//farbe grün 
+                }
+                if (File.CompareTo(index) < 0) {//farbe rot
+                }
+                if (File.CompareTo(index) > 0)
+                {//farbe orange?
+                }
+                else { MessageBox.Show("Fehler\r\n");
+                }
+            }
+            return res;
         }
         private int createDatabase(string task)
         {
