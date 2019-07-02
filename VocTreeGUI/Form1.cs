@@ -893,6 +893,11 @@ namespace VocTreeGUI
             LoadImageFolder(@"C:\Users\David\Desktop\Datasets_Bases\oxbuild5k640x480\queries");
         }
 
+        private void MetroButton8_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void mBtnKill_Click(object sender, EventArgs e)
         {
             foreach (var process in Process.GetProcessesByName("engine")) //Kills Background voctree
