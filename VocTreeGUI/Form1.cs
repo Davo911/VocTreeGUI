@@ -409,17 +409,11 @@ namespace VocTreeGUI
         {
             try
             {
-                List<Color> colors = new List<Color> { Color.Lime, Color.Tomato, Color.LightCoral, Color.LightGreen };//{Identisch,falsch, besser, noch besser}
                 metroButton5.Enabled = false;
                 if (isFile)//Query File or Directory?
                 {
                     times_result.Clear();
                     await Task.Run(() => queryImage(fileList[0]));
-                    for (int j = 0; j < pic_result[0].Length; j++)
-                    {
-                        int check = checktruefactor(fileList[0].Split('\\').Last(), pic_result[0][j].Split('\\').Last(), 0);
-                        lableVek[j].BackColor = colors[check];
-                    }
                 }
                 else
                 {
@@ -434,11 +428,11 @@ namespace VocTreeGUI
                     labQTime.Text = times_result.Sum() + "ms";
                     labAVG.Visible = true;
                     labAVG.Text = "Ø" + Math.Round(times_result.Average()) + "ms";
-                    /*
+
                     //Check and Calculate Prezision
                     for (int i = 0; i < fileList.Count; i++)
                     {
-                        int res = checktruefactor(fileList[i].Split('\\').Last(), pic_result[0][j].Split('\\').Last(), 0);
+                        int[] res = CheckGroundTruthOx5k(fileList[i], i);
                         for (int j = 0; j < res.Length; j++)
                         {
                             lableVek[j].BackColor = res[j] == 1 ? Color.LightGreen : Color.LightCoral;
@@ -446,7 +440,7 @@ namespace VocTreeGUI
                         reslist.Add(res);
                     }
                     CalcPrecision(reslist);
-                    */
+
                 }
                 //Display everything
                 for (int i = 0; i < pic_result[0].Length && pic_result[0][i] != null; i++)
@@ -543,47 +537,6 @@ namespace VocTreeGUI
                 MessageBox.Show("Error at GT-Check: " + ex.Message);
                 return null;
             }
-        }
-
-        private int checktruefactor(string qname, string rname, int index)
-        {
-            string[] q_id = qname.Split('_').First().Split('.').First().Split('-');
-            string[] r_id = rname.Split('_').First().Split('.').First().Split('-');
-            int zahl = 0;
-            if (q_id.Length > r_id.Length)
-            {
-                for (int j = 0; j < r_id.Length; j++)
-                {
-                    if (q_id[j] != (r_id[j]))
-                    {
-                        zahl = j+1;
-                        break;
-                    }
-                }
-            }
-            else if (q_id.Length < r_id.Length)
-            {
-                for (int j = 0; j < q_id.Length; j++)
-                {
-                    if (q_id[j] != (r_id[j]))
-                    {
-                        zahl = j+1;
-                        break;
-                    }
-                }
-            }
-            else if (q_id.Length == r_id.Length)
-            {
-                for (int j = 0; j < q_id.Length; j++)
-                {
-                    if (q_id[j] != (r_id[j]))
-                    {
-                        zahl = j+1;
-                        break;
-                    }
-                }
-            }
-            return zahl;
         }
         private int createDatabase(string task)
         {
@@ -774,7 +727,6 @@ namespace VocTreeGUI
                 score_result.Clear();
                 ShowResults(isFile);
             }
-
         }
         private void btnStart_Click(object sender, EventArgs e)
         {
